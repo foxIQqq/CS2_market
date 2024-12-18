@@ -57,7 +57,7 @@ async def sell_skin(skin_id: int, price: float = Form(...), user=Depends(get_cur
     await database.execute(query=query_update_skin, values={"skin_id": skin_id, "user_id": user["id"]})
 
     # Логируем событие
-    await log_history(user_id=user["id"], action_type="sell", description=f"skin_id: {skin_id}")
+    # await log_history(user_id=user["id"], action_type="sell", description=f"skin_id: {skin_id}")
 
     return RedirectResponse(url="/profile", status_code=HTTP_303_SEE_OTHER)
 

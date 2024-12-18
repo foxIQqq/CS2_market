@@ -109,7 +109,7 @@ async def remove_skin_from_sale(skin_id: int, request: Request, user=Depends(get
         await database.execute(query=query_update_inventory, values={"skin_id": skin_id, "user_id": user["id"]})
 
         # Логируем событие
-        await log_history(user_id=user["id"], action_type="remove_sell", description=f"skin_id: {skin_id}")
+        # await log_history(user_id=user["id"], action_type="remove_sell", description=f"skin_id: {skin_id}")
 
     # Определяем откуда пришел запрос и редиректим
     referer = request.headers.get("referer", "/profile")
@@ -132,7 +132,7 @@ async def set_balance(user_id: int = Form(...), new_balance: float = Form(...), 
     await database.execute(query=query, values={"user_id": user_id, "new_balance": new_balance})
 
     # Логируем изменение баланса
-    await log_history(user_id=user_id, action_type="update_balance", description=f"amount: {new_balance}")
+    # await log_history(user_id=user_id, action_type="update_balance", description=f"amount: {new_balance}")
 
     return RedirectResponse(url="/profile", status_code=303)
 
@@ -164,7 +164,7 @@ async def admin_remove_sale_form(skin_id: int = Form(...), admin=Depends(get_cur
     await database.execute(query=query_update_inventory, values={"skin_id": skin_id, "user_id": user_id})
 
     # Логируем событие
-    await log_history(user_id=user_id, action_type="remove_sell", description=f"skin_id: {skin_id}")
+    # await log_history(user_id=user_id, action_type="remove_sell", description=f"skin_id: {skin_id}")
 
     return RedirectResponse(url="/profile", status_code=303)
 

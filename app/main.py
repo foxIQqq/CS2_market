@@ -4,8 +4,9 @@ from app.routers.auth_routes import router as auth_router
 from app.routers import main, profile, sell, buy
 from app.db.database import database
 from fastapi.staticfiles import StaticFiles
+from app.utils.triggers import initialize_triggers
+from app.utils.views import initialize_views
 
-# Настраиваем FastAPI и подключаем шаблоны
 app = FastAPI()
 
 # Подключение статики
@@ -23,6 +24,8 @@ app.include_router(auth_router)
 @app.on_event("startup")
 async def startup():
     await database.connect()
+    await initialize_triggers()
+    await initialize_views()
 
 # Отключение от базы данных при завершении приложения
 @app.on_event("shutdown")
