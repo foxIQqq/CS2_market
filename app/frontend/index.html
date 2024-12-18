@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS2 Skin Marketplace</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header>
+        <h1>CS2 Skin Marketplace</h1>
+        <div class="buttons">
+            {% if user %}
+                <a href="/profile"><button>Профиль</button></a>
+            {% else %}
+                <a href="/login"><button>Войти</button></a>
+                <a href="/auth"><button>Авторизация через Steam</button></a>
+            {% endif %}
+        </div>
+    </header>
+    <main>
+        {% if user %}
+        <!-- Избранные предметы -->
+        <h2>Избранные</h2>
+        <div class="card-container">
+            {% for skin in favorite_skins %}
+            <div class="card">
+                <h3>{{ skin.name }}</h3>
+                <p class="price">{{ skin.price }} руб.</p>
+                <!-- Кнопка удаления из избранного -->
+                <form method="post" action="/favorites/{{ skin.skin_id }}">
+                    <button type="submit" class="favorite-btn filled">❤️</button>
+                </form>
+                <a href="/buy/{{ skin.skin_id }}"><button class="buy-btn">Купить</button></a>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Все скины для продажи -->
+        <h2>Предметы для покупки</h2>
+        <div class="card-container">
+            {% for skin in skins %}
+            <div class="card">
+                <h3>{{ skin.name }}</h3>
+                <p class="price">{{ skin.price }} руб.</p>
+            
+                {% if user %}
+                    <!-- Проверка: товар не принадлежит пользователю -->
+                    {% if not skin.is_owned_by_user %}
+                        <!-- Кнопка избранного -->
+                        <form method="post" action="/favorites/{{ skin.skin_id }}">
+                            {% if skin.is_favorite %}
+                            <button type="submit" class="favorite-btn filled">❤️</button>
+                            {% else %}
+                            <button type="submit" class="favorite-btn">🤍</button>
+                            {% endif %}
+                        </form>
+                        <a href="/buy/{{ skin.skin_id }}"><button class="buy-btn">Купить</button></a>
+                    {% else %}
+                        <p class="info">Это ваш товар.</p>
+                    {% endif %}
+                {% else %}
+                    <p class="info">Авторизуйтесь, чтобы добавить в избранное.</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+            
+        </div>
+    </main>
+    <footer>
+        <p>© 2024 CS2 Marketplace</p>
+    </footer>
+</body>
+</html>

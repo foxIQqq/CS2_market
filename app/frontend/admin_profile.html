@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ-панель</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Админ-панель</h1>
+        <div class="buttons">
+            <a href="/"><button>На главную</button></a>
+            <form method="post" action="/logout" style="display:inline;">
+                <button type="submit" class="logout-btn">Выйти</button>
+            </form>
+        </div>
+    </header>
+    <main>   
+        <h2>Панель администратора</h2>
+
+        <h3>Пользователи</h3>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Имя</th>
+                <th>Баланс</th>
+                <th>Изменить баланс</th>
+            </tr>
+            {% for u in users %}
+            <tr>
+                <td>{{ u.id }}</td>
+                <td>{{ u.username }}</td>
+                <td>{{ u.balance }} руб.</td>
+                <td>
+                    <form method="post" action="/admin/set_balance">
+                        <input type="hidden" name="user_id" value="{{ u.id }}">
+                        <input type="number" name="new_balance" step="0.01" placeholder="Новый баланс">
+                        <button type="submit">Изменить баланс</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <h3>Снять предмет с продажи</h3>
+        <form method="post" action="/admin/remove_sale">
+            <label for="skin_id">Выберите предмет:</label>
+            <select name="skin_id" id="skin_id">
+                {% for skin in skins_for_removal %}
+                <option value="{{ skin.skin_id }}">{{ skin.skin_id }} - {{ skin.name }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Снять с продажи</button>
+        </form>
+    </main>
+    <footer>
+        <p>© 2024 CS2 Marketplace</p>
+    </footer>
+</body>
+</html>

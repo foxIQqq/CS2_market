@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Продажа скина</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header>
+        <h1>CS2 Skin Marketplace</h1>
+        <div class="buttons">
+            <a href="/profile"><button>Профиль</button></a>
+        </div>
+    </header>
+
+    <main>
+        <h2>Продажа скина</h2>
+        <div class="sell-form">
+            <h3>{{ skin.name }}</h3>
+            <form method="post" action="/sell/{{ skin.skin_id }}">
+                <label for="price">Цена (руб.):</label>
+                <input type="number" id="price" name="price" min="1" required>
+                <button type="submit" class="btn-submit">Выставить на продажу</button>
+            </form>
+            <a href="/profile" class="back-link"><button class="btn-secondary">Назад</button></a>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2024 CS2 Marketplace</p>
+    </footer>
+</body>
+</html>

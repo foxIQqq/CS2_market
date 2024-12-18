@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Покупка скина</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Покупка скина</h1>
+        <a href="/"><button>На главную</button></a>
+    </header>
+    <main>
+        <h2>Информация о скине</h2>
+        <p>Название: <strong>{{ skin.name }}</strong></p>
+        <p>Цена: <strong>{{ skin.price }} руб.</strong></p>
+        <p>Ваш баланс: <strong>{{ user_balance }} руб.</strong></p>
+        {% if user_balance >= skin.price %}
+        <form method="post" action="/buy/{{ skin_id }}">
+            <button type="submit" class="buy-btn">Купить</button>
+        </form>
+        {% else %}
+        <p class="error">Недостаточно средств для покупки.</p>
+        {% endif %}
+    </main>
+    <footer>
+        <p>© 2024 CS2 Marketplace</p>
+    </footer>
+</body>
+</html>

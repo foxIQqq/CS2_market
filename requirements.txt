@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+psycopg2-binary  # Библиотека для работы с PostgreSQL
+python-dotenv    # Для работы с .env-файлом
+streamlit
+requests         # Для взаимодействия с API Steam

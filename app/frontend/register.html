@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header>
+        <h1>CS2 Skin Marketplace</h1>
+    </header>
+    <main>
+        <h2>Регистрация</h2>
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+        <form method="post" action="/register" class="auth-form">
+            <label for="username">Логин:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Пароль:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Зарегистрироваться</button>
+        </form>
+        <div class="links">
+            <a href="/login"><button>Войти</button></a>
+            <a href="/"><button>На главную</button></a>
+        </div>
+    </main>
+    <footer>
+        <p>© 2024 CS2 Marketplace</p>
+    </footer>
+</body>
+</html>

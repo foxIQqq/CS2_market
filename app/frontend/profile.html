@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль пользователя</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Ваш профиль</h1>
+        <div class="buttons">
+            <a href="/"><button>На главную</button></a>
+            <form method="post" action="/logout" style="display:inline;">
+                <button type="submit" class="logout-btn">Выйти</button>
+            </form>
+        </div>
+    </header>
+    <main>
+        <h2>Ваш баланс: <strong>{{ balance }} руб.</strong></h2>
+        <h2>Ваши скины</h2>
+        <div class="card-container">
+            {% for skin in user_skins %}
+            <div class="card">
+                <h3>{{ skin.name }}</h3>
+                <p class="price">{{ skin.price or "Не оценен" }} руб.</p>
+                {% if skin.is_for_sale %}
+                <p>Выставлен на продажу за {{ skin.price }} руб.</p>
+                <form method="post" action="/remove_sale/{{ skin.id }}">
+                    <button type="submit" class="remove-btn">Снять с продажи</button>
+                </form>
+                {% else %}
+                <a href="/sell/{{ skin.id }}" class="sell-btn">Продать</a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+    <footer>
+        <p>© 2024 CS2 Marketplace</p>
+    </footer>
+</body>
+</html>
